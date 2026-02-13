@@ -12,3 +12,4 @@ node_modules/
 
 *.keras
 backend/model/
+backend/venv/
