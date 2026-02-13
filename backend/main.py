@@ -9,6 +9,8 @@ import hashlib
 import uuid
 import time
 from tensorflow.keras.applications.efficientnet_v2 import preprocess_input
+from blockchain import Blockchain
+
 
 
 app = FastAPI(title="Plastic Verification Backend")
@@ -27,11 +29,12 @@ model = tf.keras.models.load_model(
     custom_objects={"preprocess_input": preprocess_input}
 )
 
+blockchain = Blockchain()
 
 class_names = ["OTHERS", "PC", "PE", "PET", "PP", "PS"]
 
 def preprocess_image(image):
-    image = image.resize((260, 260))  # CHANGE if different
+    image = image.resize((260, 260)) 
     image = np.array(image)
     image = np.expand_dims(image, axis=0)
     return image
@@ -60,11 +63,21 @@ async def predict(file: UploadFile = File(...)):
     class_index = np.argmax(prediction)
     confidence = float(np.max(prediction))
 
-    return JSONResponse({
+    record = {
         "request_id": request_id,
         "plastic_type": class_names[class_index],
         "confidence": confidence,
         "image_hash": image_hash,
         "timestamp": time.time(),
         "verification_status": "verified"
-    })
+    }
+
+    blockchain.add_block_from_data(record)
+
+    return JSONResponse(record)
+
+@app.get("/chain")
+def get_chain():
+    blockchain.load_chain()
+    return [b.to_dict() for b in blockchain.chain]
+

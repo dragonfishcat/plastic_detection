@@ -6,7 +6,7 @@ blockchain = Blockchain()
 
 @app.route("/chain", methods=["GET"])
 def get_chain():
-    blockchain.load_chain()
+    blockchain.load_chain()  # reload from disk
     return jsonify([b.to_dict() for b in blockchain.chain])
 
 if __name__ == "__main__":

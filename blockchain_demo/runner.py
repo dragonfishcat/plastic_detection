@@ -12,13 +12,10 @@ def fetch_and_add():
 
     for record in records:
         print("Adding block:", record)
-        blockchain.add_block_from_data(
-            record["image_path"],
-            record["numbers"]
-        )
+        blockchain.add_block_from_data(record)
 
     print("All records added.")
 
 if __name__ == "__main__":
-    time.sleep(2)  
+    time.sleep(2)  # wait for APIs to start
     fetch_and_add()
