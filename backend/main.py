@@ -62,6 +62,7 @@ async def predict(file: UploadFile = File(...)):
     prediction = model.predict(img)
     class_index = np.argmax(prediction)
     confidence = float(np.max(prediction))
+    #print(prediction)
 
     record = {
         "request_id": request_id,

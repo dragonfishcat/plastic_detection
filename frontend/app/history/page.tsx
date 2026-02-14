@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 interface Block {
   index: number;
@@ -26,9 +27,9 @@ export default function HistoryPage() {
       const filtered = data.filter((block) => block.index !== 0);
 
       // Take last 10 and reverse
-      const lastTen = filtered.slice(-10).reverse();
+      const reversed = filtered.reverse();
 
-      setHistory(lastTen);
+      setHistory(reversed);
     } catch (error) {
       console.error("Error fetching history:", error);
     }
@@ -41,13 +42,21 @@ export default function HistoryPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white p-10">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white p-2">
+
+      <Link href="/">
+      <button className="mt-2 ml-2  bg-emerald-600 hover:bg-emerald-700 text-xs mx-auto px-3 py-2 mb-2 rounded-md transition">
+          BACK
+      </button>
+      </Link>
+
       <div className="max-w-6xl mx-auto">
+
         <h1 className="text-3xl font-bold mb-2">
           Blockchain Scan History
         </h1>
         <p className="text-slate-400 mb-8">
-          Last 10 Verified Plastic Classifications
+          Past Verified Plastic Classifications
         </p>
 
         <div className="grid gap-6 md:grid-cols-2">
