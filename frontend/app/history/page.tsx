@@ -45,7 +45,7 @@ export default function HistoryPage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white p-2">
 
       <Link href="/">
-      <button className="mt-2 ml-2  bg-emerald-600 hover:bg-emerald-700 text-xs mx-auto px-3 py-2 mb-2 rounded-md transition">
+      <button className="mt-2 ml-2  bg-emerald-600 hover:bg-emerald-700 text-xs px-3 py-2 mb-2 rounded-md transition">
           BACK
       </button>
       </Link>
